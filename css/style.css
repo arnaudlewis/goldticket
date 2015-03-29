@@ -2,9 +2,27 @@
 #home-component {
   background-image: url("/goldticket/img/components/home/discover-wallpaper.jpg");
   height: 40em; }
-
-.dark-layer {
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  height: 100%;
-  color: white; }
+  #home-component .dark-layer {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #home-component .dark-layer .main-block {
+      color: rgba(244, 244, 244, 0.8);
+      text-align: center;
+      width: 100%;
+      font-family: 'Segoe UI';
+      flex: 1; }
+      #home-component .dark-layer .main-block .main-title {
+        font-size: 4em;
+        font-weight: bold;
+        margin-bottom: 1.5rem; }
+      #home-component .dark-layer .main-block .main-action .flat-btn {
+        border: 1px solid rgba(244, 244, 244, 0.8);
+        padding: 0.4em;
+        color: white;
+        padding: 0.3em 1em;
+        text-decoration: none; }

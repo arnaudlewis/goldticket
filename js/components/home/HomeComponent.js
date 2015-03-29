@@ -1,4 +1,7 @@
 var React = require('react');
+var Router = require('react-router'); // or var Router = ReactRouter; in browsers
+
+var Link = Router.Link;
 
 var TranslationStore = require('../../stores/TranslationStore');
 
@@ -16,13 +19,34 @@ var HomeComponent = React.createClass({
         return getHomeState();
     },
 
+    componentDidMount: function () {
+        "use strict";
+        TranslationStore.addChangeListener(this._onChange);
+    },
+
+    componentWillUnmount: function () {
+        "use strict";
+        TranslationStore.removeChangeListener(this._onChange);
+    },
+
     render: function () {
         "use strict";
         return (
             <div id="home-component">
-                <div className="dark-layer"> test</div>
+                <div className="dark-layer">
+                    <div className="main-block">
+                        <div className="main-title"> {this.state.translations.HOME_MAIN_TITLE} </div>
+                        <div className="main-action">
+                            <Link to="repositories" className="flat-btn">{this.state.translations.HOME_DISCOVER}</Link></div>
+                    </div>
+                </div>
             </div>
         );
+    },
+
+    _onChange: function () {
+        "use strict";
+        this.setState(getHomeState);
     }
 });
 
