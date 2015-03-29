@@ -4,6 +4,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
 var concat = require('gulp-concat');
+var sass = require('gulp-sass');
 
 gulp.task('browserify', function() {
     var bundler = browserify({
@@ -26,12 +27,16 @@ gulp.task('browserify', function() {
         .pipe(gulp.dest('./build/'));
 });
 
-// I added this so that you see how to run two watch tasks
-//gulp.task('css', function () {
-//    gulp.watch('styles/**/*.css', function () {
-//        return gulp.src('styles/**/*.css')
-//            .pipe(concat('main.css'))
-//            .pipe(gulp.dest('build/'));
-//    });
-//});
-gulp.task('default', ['browserify']);
+gulp.task('sass', function () {
+    gulp.src('css/sass/**/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('css'))
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest('./css'));
+});
+
+gulp.task('watchcss', function() {
+    gulp.watch('css/**/*.scss', ['sass']);
+});
+
+gulp.task('default', ['browserify', 'watchcss']);
