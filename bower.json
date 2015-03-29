@@ -4,6 +4,7 @@
   "main": "assets/styles/main.css",
   "dependencies": {
     "bootstrap-material-design": "*",
-    "font-awesome": "*"
+    "font-awesome": "*",
+    "normalize-css": "*"
   }
 }

@@ -2,28 +2,28 @@ var React = require('react');
 
 var TranslationStore = require('../../stores/TranslationStore');
 
-function getHomeState() {
+function getFooterState() {
     "use strict";
     return {
         translations: TranslationStore.getTranslations()
     };
 }
 
-var HomeComponent = React.createClass({
+var Footer = React.createClass({
 
     getInitialState: function () {
         "use strict";
-        return getHomeState();
+        return (
+            getFooterState()
+        )
     },
 
     render: function () {
         "use strict";
         return (
-            <div id="home-component">
-                <div className="dark-layer"> test</div>
+            <div className='footer'>
+                by Arnaud Lewis
             </div>
-        );
+        )
     }
 });
-
-module.exports = HomeComponent;
