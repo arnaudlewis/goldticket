@@ -1,0 +1,9 @@
+{
+  "name": "goldticket",
+  "version": "1.0.0",
+  "main": "assets/styles/main.css",
+  "dependencies": {
+    "bootstrap-material-design": "*",
+    "font-awesome": "*"
+  }
+}
