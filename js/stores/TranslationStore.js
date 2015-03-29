@@ -1,21 +1,9 @@
 var EventEmitter = require('events').EventEmitter;
-
 var Constants = require('../constants/Constants');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var Dispatcher = require('../dispatcher/AppDispatcher');
 var assign = require('object-assign');
 
-var _translationsFromServer = {
-    test: 'test',
-    test2: 'test2'
-};
-
-
 var _translations = {};
-
-function _loadTranslations() {
-    "use strict";
-    _translations = _translationsFromServer;
-}
 
 var CHANGE_EVENT = 'change';
 
@@ -32,25 +20,26 @@ var TranslationStore = assign({}, EventEmitter.prototype, {
 
     removeChangeListener: function (callback) {
         "use strict";
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     getTranslations: function () {
         "use strict";
         return _translations;
-    },
-
-    dispatcherIndex: AppDispatcher.register(function (payload) {
-        "use strict";
-        var action = payload;
-        switch (action.actionType) {
-            case Constants.LOAD_TRANSLATIONS :
-                _loadTranslations();
-                break;
-        }
-        TranslationStore.emitChange();
-
-        return true;
-    })
+    }
 });
+
+TranslationStore.dispatchToken = Dispatcher.register(function (payload) {
+    "use strict";
+    var action = payload;
+    switch (action.actionType) {
+        case Constants.LOAD_TRANSLATIONS :
+            _translations = action.data;
+            break;
+    }
+    TranslationStore.emitChange();
+
+    return true;
+});
+
 module.exports = TranslationStore;
