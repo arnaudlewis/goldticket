@@ -1,6 +1,6 @@
 #home-component {
   background-image: url("/goldticket/img/components/home/discover-wallpaper.jpg");
-  height: 40em; }
+  height: 35em; }
   #home-component .dark-layer {
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
