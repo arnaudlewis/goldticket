@@ -17,7 +17,6 @@ gulp.task('browserify', function() {
 
     return watcher
         .on('update', function () {
-            var updateStart = Date.now();
             watcher.bundle()
                 .pipe(source('App.js'))
                 .pipe(gulp.dest('./build/'));
@@ -28,9 +27,8 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('sass', function () {
-    gulp.src('css/sass/**/*.scss')
+    gulp.src(['css/*.scss', 'css/**/*.scss'])
         .pipe(sass())
-        .pipe(gulp.dest('css'))
         .pipe(concat('style.css'))
         .pipe(gulp.dest('./css'));
 });
