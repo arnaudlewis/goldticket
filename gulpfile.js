@@ -6,18 +6,17 @@ var reactify = require('reactify');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
     var bundler = browserify({
         entries: ['./js/app.js'],
         transform: [reactify],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     });
-    var watcher  = watchify(bundler);
+    var watcher = watchify(bundler);
 
     return watcher
         .on('update', function () {
-            var updateStart = Date.now();
             watcher.bundle()
                 .pipe(source('App.js'))
                 .pipe(gulp.dest('./build/'));
@@ -28,14 +27,13 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('sass', function () {
-    gulp.src('css/sass/**/*.scss')
+    gulp.src(['css/*.scss', 'css/**/*.scss'])
         .pipe(sass())
-        .pipe(gulp.dest('css'))
         .pipe(concat('style.css'))
         .pipe(gulp.dest('./css'));
 });
 
-gulp.task('watchcss', function() {
+gulp.task('watchcss', function () {
     gulp.watch('css/**/*.scss', ['sass']);
 });
 
