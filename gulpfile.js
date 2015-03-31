@@ -6,14 +6,14 @@ var reactify = require('reactify');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('browserify', function () {
+gulp.task('browserify', function() {
     var bundler = browserify({
         entries: ['./js/app.js'],
         transform: [reactify],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     });
-    var watcher = watchify(bundler);
+    var watcher  = watchify(bundler);
 
     return watcher
         .on('update', function () {
@@ -33,7 +33,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./css'));
 });
 
-gulp.task('watchcss', function () {
+gulp.task('watchcss', function() {
     gulp.watch('css/**/*.scss', ['sass']);
 });
 
