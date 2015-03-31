@@ -1,11 +1,12 @@
 @import '../config_path';
+@import '../colors';
 
 .element-wallpaper-light {
-  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/87afedb39f8144613845b56635445313e41c20ff.jpg') #fff no-repeat left top;
+  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/87afedb39f8144613845b56635445313e41c20ff.jpg') $home_element_wallpaper_light no-repeat left top;
 }
 
 .element-wallpaper-dark {
-  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/795de399675cd47511a63482f8a0f264640be3c9.jpg') #333 no-repeat right center;
+  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/795de399675cd47511a63482f8a0f264640be3c9.jpg') $home_element_wallpaper_dark no-repeat right center;
 }
 
 .discover-wallpaper {
@@ -13,12 +14,12 @@
 }
 
 .light-layer {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: $home_layer_background_light;
   color: black;
 }
 
 .dark-layer {
-  background-color: rgba(43, 43, 43, 0.5);
+  background-color: $home_layer_background_dark;
   color: white;
 }
 
@@ -35,7 +36,7 @@
 
     //home header
     .main-block {
-      color: rgba(244, 244, 244, 0.8);
+      color: $home_light_color;
       text-align: center;
       width: 100%;
       flex: 1;
@@ -48,9 +49,9 @@
 
       .main-action {
         .flat-btn {
-          border: 1px solid rgba(244, 244, 244, 0.8);
-          padding: 0.4em;
-          color: white;
+          border: 3px solid $home_light_color;
+          font-weight: bold;
+          color: $home_light_color;
           padding: 0.3em 1em;
           text-decoration: none;
         }
