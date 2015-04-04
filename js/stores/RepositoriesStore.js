@@ -3,7 +3,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 var assign = require('object-assign');
 
-var _searchData = [];
+var _searchData = {};
 var _filter = {};
 var _form = {};
 
@@ -28,6 +28,11 @@ var RepositoriesStore = assign({}, EventEmitter.prototype, {
     getSearchData: function() {
         "use strict";
         return _searchData;
+    },
+
+    getRepositories: function() {
+        "use strict";
+        return _searchData.items ? _searchData.items : [];
     },
 
     getCountRepositories: function() {

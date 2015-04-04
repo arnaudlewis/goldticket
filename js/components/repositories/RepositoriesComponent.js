@@ -2,6 +2,7 @@ var React = require('react');
 
 var RepositoriesHeader = require('./head/RepositoriesHeader');
 var RepositoriesTools = require('./list/RepositoriesTools');
+var RepositoriesTableList = require('./list/RepositoriesTableList');
 
 var RepositoriesComponent = React.createClass({
 
@@ -11,6 +12,7 @@ var RepositoriesComponent = React.createClass({
             <div className="repositories-component">
                 <RepositoriesHeader />
                 <RepositoriesTools />
+                <RepositoriesTableList />
             </div>
         );
     }
