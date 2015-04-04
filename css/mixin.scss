@@ -1,0 +1,38 @@
+@mixin displayFlex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -webkit-flexbox;
+
+  display: -moz-box;
+  display: -moz-flexbox;
+  display: -moz-flex;
+
+  display: -ms-box;
+  display: -ms-flexbox;
+  display: -ms-flex;
+
+  display: box;
+  display: flexbox;
+  display: flex;
+}
+
+@mixin flex($value) {
+  -webkit-box-flex: $value;
+  -webkit-flex: $value;
+
+  -ms-box-flex: $value;
+  -ms-flex: $value;
+
+  -moz-box-flex: $value;
+  -moz-flex: $value;
+
+  flex: $value;
+  box-flex: $value;
+}
+
+@mixin lineClamp($nbLines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $nbLines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

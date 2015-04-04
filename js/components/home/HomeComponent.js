@@ -33,7 +33,7 @@ var HomeComponent = React.createClass({
     render: function () {
         "use strict";
         return (
-            <div>
+            <div className="home-component">
                 <HomeMain />
 
                 <HomeElementRight className="layer light-layer"

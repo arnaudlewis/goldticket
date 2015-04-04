@@ -1,11 +1,30 @@
 {
+  "VALIDATE": "Valider",
+
+  "ERROR_INCOMPLETE_RESULTS_TITLE" : "Incomplet",
+  "ERROR_INCOMPLETE_RESULTS_TEXT" : "Les résultats de la recherche peuvent etre partiels.",
+
   "HOME_MAIN_TITLE": "GOLD TICKET",
   "HOME_MAIN_DISCOVER": "Découvrir",
-
   "HOME_ELEMENT_REPOSITORIES_TITLE" : "EXPLORATEUR DE DEPOTS",
   "HOME_ELEMENT_REPOSITORIES_TEXT" : "A la grande découverte des projets publics GitHub",
   "HOME_ELEMENT_REPOSITORY_TITLE" : "DETAIL D'UN DEPOT",
   "HOME_ELEMENT_REPOSITORY_TEXT" : "Retrouvez toutes les informations sur l'équipe de projet, leurs commits et bien plus !",
   "HOME_ELEMENT_ANALYTICS_TITLE" : "ANALYSE",
-  "HOME_ELEMENT_ANALYTICS_TEXT" : "Effet \"Waouh\" assuré! Visualisez les stats des derniers commits au travers des graphiques"
+  "HOME_ELEMENT_ANALYTICS_TEXT" : "Effet \"Waouh\" assuré! Visualisez les stats des derniers commits au travers des graphiques",
+
+  "REPOSITORIES_HEADER_TITLE" : "GitHub Browser",
+  "REPOSITORIES_HEAD_FORM_SEARCH_FIELD" : "Nom, description",
+  "REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD" : "Langage",
+  "REPOSITORIES_HEAD_FORM_USER_FIELD" : "Utilisateur",
+  "REPOSITORIES_HEAD_FORM_DATE" : "Date Creation ou Push (JJ/MM/AA)",
+
+  "REPOSITORIES_LIST_TOOLS_COUNT": "Il y a {{countRepositories}} dépôts disponibles",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_BEST_MATCH": "Pertinence",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_MOST_STARS": "Le plus d'étoiles",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_FEWEST_STARS": "Le moins d'étoiles",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_MOST_FORKS": "Le plus de déclinaisons",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_FEWEST_FORKS": "Le moins de déclinaisons",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_RECENTLY_UPDATED": "Le plus récent",
+  "REPOSITORIES_LIST_TOOLS_SORT_BOX_LEAST_RECENTLY_UPDATED": "Le plus ancien"
 }

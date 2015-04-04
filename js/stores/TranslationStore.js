@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('../constants/Constants');
-var Dispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var assign = require('object-assign');
 
 var _translations = {};
@@ -26,10 +26,20 @@ var TranslationStore = assign({}, EventEmitter.prototype, {
     getTranslations: function () {
         "use strict";
         return _translations;
+    },
+
+    interpolate: function(translation, params) {
+        "use strict";
+        if(!translation) return;
+        var interpolatedTranslation;
+        for(var key in params) {
+            interpolatedTranslation = translation.replace('{{' + key + '}}', params[key]);
+        }
+        return interpolatedTranslation;
     }
 });
 
-TranslationStore.dispatchToken = Dispatcher.register(function (payload) {
+AppDispatcher.register(function (payload) {
     "use strict";
     var action = payload;
     switch (action.actionType) {

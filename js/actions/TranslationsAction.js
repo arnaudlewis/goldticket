@@ -1,4 +1,4 @@
-var Dispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 var jQuery = require('jquery');
 
@@ -8,7 +8,7 @@ var TranslationsAction = {
         var filepath = './translations/translations_' + browserLangCode + '.json';
 
         jQuery.getJSON(filepath, function (data) {
-            Dispatcher.dispatch({
+            AppDispatcher.dispatch({
                 actionType: Constants.LOAD_TRANSLATIONS,
                 data: data
             });

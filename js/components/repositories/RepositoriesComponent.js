@@ -1,25 +1,17 @@
 var React = require('react');
 
-var TranslationStore = require('../../stores/TranslationStore');
-
-function getRepositoriesState() {
-    "use strict";
-    return {
-        translations : TranslationStore.getTranslations()
-    }
-}
+var RepositoriesHeader = require('./head/RepositoriesHeader');
+var RepositoriesTools = require('./list/RepositoriesTools');
 
 var RepositoriesComponent = React.createClass({
-
-    getInitialState: function() {
-        "use strict";
-       return getRepositoriesState();
-    },
 
     render: function() {
         "use strict";
         return(
-            <div> Repositories </div>
+            <div className="repositories-component">
+                <RepositoriesHeader />
+                <RepositoriesTools />
+            </div>
         );
     }
 });

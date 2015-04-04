@@ -1,0 +1,71 @@
+@import '../colors';
+@import '../mixin';
+
+.repositories-component {
+
+  .repositories-header {
+    width: 100%;
+    min-height: 20em;
+    @include displayFlex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: $home_element_wallpaper_dark;
+
+  .title {
+    @include flex(1);
+    color: $repositories_head_title_color;
+    font-size: 5em;
+  }
+
+    .form {
+      @include flex(1);
+      padding: 2em;
+      @include displayFlex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      text-align: center;
+
+      .error-msg {
+        color: $repositories_head_form_error_msg;
+        display: none;
+        margin-top: 2em;
+        &.active {
+          display: block;
+        }
+      }
+
+      .advance {
+        cursor: pointer;
+        margin: 0 0 1em 0;
+        a {
+          color: $repositories_head_form_advance_settings;
+          text-decoration: none;
+          }
+        i {
+          color: white;
+          margin-right: 0.5em;
+          line-height: 1em;
+        }
+      }
+
+      > div {
+        max-width: 40em;
+        width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+
+      button {
+        max-width: 10em;
+        width: 100%;
+      }
+    }
+  }
+
+  .repositories-tools {
+  }
+}

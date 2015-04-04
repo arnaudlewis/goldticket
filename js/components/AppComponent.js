@@ -3,10 +3,11 @@ var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 
 var TranslationsAction = require('../actions/TranslationsAction');
+var ErrorRenderer = require('../components/error/ErrorRenderer');
 
 var AppComponent = React.createClass({
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         "use strict";
         TranslationsAction.loadTranslations();
     },
@@ -14,7 +15,10 @@ var AppComponent = React.createClass({
     render: function () {
         "use strict";
         return (
-            <RouteHandler />
+            <div>
+                <ErrorRenderer />
+                <RouteHandler />
+            </div>
         )
     }
 });

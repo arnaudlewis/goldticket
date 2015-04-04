@@ -2,6 +2,13 @@ var React = require('react');
 
 var HomeElementLeft = React.createClass({
 
+    propTypes: {
+        elementTitle: React.PropTypes.string.isRequired,
+        elementText: React.PropTypes.string.isRequired,
+        className: React.PropTypes.string,
+        backgroundImgClass: React.PropTypes.string
+    },
+
     render: function () {
         "use strict";
         return (

@@ -1,8 +1,5 @@
 
 
-body {
-  font-family: 'Segoe UI'; }
-
 .element-wallpaper-light {
   background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/87afedb39f8144613845b56635445313e41c20ff.jpg') #fff no-repeat left top; }
 
@@ -12,6 +9,25 @@ body {
 .discover-wallpaper {
   background-image: url("../img/components/home/discover-wallpaper.jpg"); }
 
+.layer {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -webkit-flexbox;
+  display: -moz-box;
+  display: -moz-flexbox;
+  display: -moz-flex;
+  display: -ms-box;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: box;
+  display: flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+
 .light-layer {
   background-color: rgba(255, 255, 255, 0.5);
   color: black; }
@@ -20,58 +36,195 @@ body {
   background-color: rgba(43, 43, 43, 0.75);
   color: white; }
 
-.home-element {
+body {
+  font-family: 'Segoe UI'; }
+
+
+.alert {
+  display: none;
+  z-index: 2;
+  width: 15em;
+  height: 12em;
+  top: 50%;
+  margin-top: -6em;
+  left: 50%;
+  margin-left: -7.5em;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1em;
+  border-radius: 0.5em;
+  text-align: center;
+  position: fixed; }
+  .alert i {
+    margin-left: 1em; }
+  .alert > hr {
+    margin: 1em;
+    color: white; }
+  .alert > #iconAlert {
+    height: 2em;
+    width: 2em;
+    margin: 0 auto; }
+    .alert > #iconAlert > svg {
+      width: 2em;
+      height: 2em;
+      fill: white; }
+  .alert > #alertMessage {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden; }
+
+.home-component .home-element {
   height: 35em; }
-  .home-element .layer {
-    width: 100%;
-    height: 100%;
-    display: flex;
+  .home-component .home-element .element-block {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-box-flex: 1;
+    -ms-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+    box-flex: 1;
+    height: 20em;
+    width: 30em;
     justify-content: center;
     align-items: center;
-    text-align: center; }
-    .home-element .layer .element-block {
-      flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -webkit-flexbox;
+    display: -moz-box;
+    display: -moz-flexbox;
+    display: -moz-flex;
+    display: -ms-box;
+    display: -ms-flexbox;
+    display: -ms-flex;
+    display: box;
+    display: flexbox;
+    display: flex; }
+    .home-component .home-element .element-block > div {
       height: 20em;
-      width: 30em;
-      justify-content: center;
-      align-items: center;
-      display: flex; }
-      .home-element .layer .element-block > div {
-        height: 20em;
-        width: 30em; }
-      .home-element .layer .element-block > img {
-        height: 20em;
-        width: 30em; }
-      .home-element .layer .element-block hr {
-        height: 0;
-        border-top: 1px solid #f94d4d;
-        border-bottom: 1px solid #f94d4d;
-        margin: 2em 0; }
-      .home-element .layer .element-block.text-right {
-        text-align: right; }
-        .home-element .layer .element-block.text-right hr {
-          margin-left: 50%; }
-      .home-element .layer .element-block.text-left {
-        text-align: left; }
-        .home-element .layer .element-block.text-left hr {
-          margin-right: 50%; }
-      .home-element .layer .element-block .element-title {
-        font-size: 3em;
-        color: #f94d4d; }
-      .home-element .layer .element-block .element-text {
-        font-size: 1.5em; }
-    .home-element .layer .main-block {
+      width: 30em; }
+    .home-component .home-element .element-block > img {
+      height: 20em;
+      width: 30em; }
+    .home-component .home-element .element-block hr {
+      height: 0;
+      border-top: 1px solid #f94d4d;
+      border-bottom: 1px solid #f94d4d;
+      margin: 2em 0; }
+    .home-component .home-element .element-block.text-right {
+      text-align: right; }
+      .home-component .home-element .element-block.text-right hr {
+        margin-left: 50%; }
+    .home-component .home-element .element-block.text-left {
+      text-align: left; }
+      .home-component .home-element .element-block.text-left hr {
+        margin-right: 50%; }
+    .home-component .home-element .element-block .element-title {
+      font-size: 3em;
+      color: #f94d4d; }
+    .home-component .home-element .element-block .element-text {
+      font-size: 1.5em; }
+  .home-component .home-element .main-block {
+    color: rgba(244, 244, 244, 0.8);
+    text-align: center;
+    width: 100%;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-box-flex: 1;
+    -ms-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+    box-flex: 1; }
+    .home-component .home-element .main-block .main-title {
+      font-size: 4em;
+      font-weight: bold;
+      margin-bottom: 1.5rem; }
+    .home-component .home-element .main-block .main-action .flat-btn {
+      border: 3px solid rgba(244, 244, 244, 0.8);
+      font-weight: bold;
       color: rgba(244, 244, 244, 0.8);
-      text-align: center;
-      width: 100%;
-      flex: 1; }
-      .home-element .layer .main-block .main-title {
-        font-size: 4em;
-        font-weight: bold;
-        margin-bottom: 1.5rem; }
-      .home-element .layer .main-block .main-action .flat-btn {
-        border: 3px solid rgba(244, 244, 244, 0.8);
-        font-weight: bold;
-        color: rgba(244, 244, 244, 0.8);
-        padding: 0.3em 1em;
+      padding: 0.3em 1em;
+      text-decoration: none; }
+
+.repositories-component .repositories-header {
+  width: 100%;
+  min-height: 20em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -webkit-flexbox;
+  display: -moz-box;
+  display: -moz-flexbox;
+  display: -moz-flex;
+  display: -ms-box;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: box;
+  display: flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #333; }
+  .repositories-component .repositories-header .title {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-box-flex: 1;
+    -ms-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+    box-flex: 1;
+    color: #f94d4d;
+    font-size: 5em; }
+  .repositories-component .repositories-header .form {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-box-flex: 1;
+    -ms-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+    box-flex: 1;
+    padding: 2em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -webkit-flexbox;
+    display: -moz-box;
+    display: -moz-flexbox;
+    display: -moz-flex;
+    display: -ms-box;
+    display: -ms-flexbox;
+    display: -ms-flex;
+    display: box;
+    display: flexbox;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center; }
+    .repositories-component .repositories-header .form .error-msg {
+      color: #f94d4d;
+      display: none;
+      margin-top: 2em; }
+      .repositories-component .repositories-header .form .error-msg.active {
+        display: block; }
+    .repositories-component .repositories-header .form .advance {
+      cursor: pointer;
+      margin: 0 0 1em 0; }
+      .repositories-component .repositories-header .form .advance a {
+        color: #f0ad4e;
         text-decoration: none; }
+      .repositories-component .repositories-header .form .advance i {
+        color: white;
+        margin-right: 0.5em;
+        line-height: 1em; }
+    .repositories-component .repositories-header .form > div {
+      max-width: 40em;
+      width: 100%; }
+      .repositories-component .repositories-header .form > div input {
+        width: 100%; }
+    .repositories-component .repositories-header .form button {
+      max-width: 10em;
+      width: 100%; }

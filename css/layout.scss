@@ -1,0 +1,34 @@
+@import 'config_path';
+@import 'colors';
+@import "mixin";
+
+.element-wallpaper-light {
+  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/87afedb39f8144613845b56635445313e41c20ff.jpg') $home_element_wallpaper_light no-repeat left top;
+}
+
+.element-wallpaper-dark {
+  background: url('https://dcnwa2u2yx5ek.cloudfront.net/zengularity/795de399675cd47511a63482f8a0f264640be3c9.jpg') $home_element_wallpaper_dark no-repeat right center;
+}
+
+.discover-wallpaper {
+  background-image: url($root-img + "/components/home/discover-wallpaper.jpg")
+}
+
+.layer {
+  width: 100%;
+  height: 100%;
+  @include displayFlex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.light-layer {
+  background-color: $home_layer_background_light;
+  color: black;
+}
+
+.dark-layer {
+  background-color: $home_layer_background_dark;
+  color: white;
+}

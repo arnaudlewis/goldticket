@@ -3,6 +3,8 @@ var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 
+window.jQuery = window.$ = require('jquery');
+
 var AppComponent = require('./components/AppComponent');
 var Home = require('./components/home/HomeComponent');
 var Repositories = require('./components/repositories/RepositoriesComponent');
