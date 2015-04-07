@@ -46,13 +46,13 @@ var HomeComponent = React.createClass({
                              backgroundImgClass="element-wallpaper-dark"
                              elementTitle={this.state.translations.HOME_ELEMENT_REPOSITORY_TITLE}
                              elementText={this.state.translations.HOME_ELEMENT_REPOSITORY_TEXT}
-                             elementImgUrl="img/components/home/discover-wallpaper.jpg"/>
+                             elementImgUrl="img/components/home/repository.png"/>
 
                 <HomeElementRight className="layer light-layer"
                              backgroundImgClass="element-wallpaper-light"
                              elementTitle={this.state.translations.HOME_ELEMENT_ANALYTICS_TITLE}
                              elementText={this.state.translations.HOME_ELEMENT_ANALYTICS_TEXT}
-                             elementImgUrl="img/components/home/discover-wallpaper.jpg"/>
+                             elementImgUrl="img/components/home/analytics.png"/>
             </div>
         );
     },

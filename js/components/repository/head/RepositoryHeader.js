@@ -19,7 +19,7 @@ var RepositoryHeader = React.createClass({
             <div className="repository-header">
                 <div className="navigation-back"><Link to="repositories"><i className="fa fa-arrow-circle-o-left"></i></Link></div>
                 <div className="title">
-                    {this.props.ownerLogin} / {this.props.repositoryName}
+                    {this.props.ownerLogin? this.props.ownerLogin + ' /' : ''} {this.props.repositoryName}
                 </div>
                 <BasicInfo stars_counter={this.props.stars_counter} forks_counter={this.props.forks_counter} language={this.props.language}/>
             </div>

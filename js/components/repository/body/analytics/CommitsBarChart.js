@@ -4,15 +4,21 @@ var BarChart = require("react-chartjs").Bar;
 var CommitsBarChart = React.createClass({
 
     propTypes: {
-        translations: React.PropTypes.object,
-        committers: React.PropTypes.array,
-        commits: React.PropTypes.array
+        translations: React.PropTypes.object.isRequired,
+        committers: React.PropTypes.array.isRequired,
+        commits: React.PropTypes.array.isRequired
     },
     render: function () {
         "use strict";
-        return <BarChart
-            data={this._getChartData(this.props.translations.REPOSITORY_NAVIGATOR_ANALYTICS_PAST_COMMIT_CHART_TITLE)}
-            width="500" height="300" redraw/>
+        return (
+            <div className="graph-container">
+                <div
+                    className="title">{this.props.translations.REPOSITORY_NAVIGATOR_ANALYTICS_PAST_COMMIT_CHART_TITLE}</div>
+                <BarChart
+                    data={this._getChartData()}
+                    width="1000" height="500" redraw/>
+            </div>
+        );
     },
 
     _getLabels: function () {
@@ -38,11 +44,11 @@ var CommitsBarChart = React.createClass({
         });
     },
 
-    _getDataset: function (dataChartName) {
+    _getDataset: function () {
         "use strict";
         return [
             {
-                label: dataChartName,
+                label: '',
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
@@ -52,7 +58,7 @@ var CommitsBarChart = React.createClass({
         ];
     },
 
-    _getChartData: function (dataChartName) {
+    _getChartData: function () {
         "use strict";
         var data = {
             labels: [],
@@ -60,7 +66,7 @@ var CommitsBarChart = React.createClass({
         };
         if (!this.props.commits.length > 0) return data;
         data.labels = this._getLabels();
-        data.datasets = this._getDataset(dataChartName);
+        data.datasets = this._getDataset();
         return data;
     }
 });

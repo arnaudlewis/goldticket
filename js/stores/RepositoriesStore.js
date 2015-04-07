@@ -9,7 +9,7 @@ var _MAX_RESULTS;
 var _searchData = {};
 var _filter = {};
 var _form = {};
-var _page;
+var _page = 0;
 
 if (sessionStorage.RepositoriesStore) {
     repo = JSON.parse(sessionStorage.RepositoriesStore);
