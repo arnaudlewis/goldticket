@@ -62,7 +62,7 @@ var CommitsBarChart = React.createClass({
         "use strict";
         var data = {
             labels: [],
-            datasets: []
+            datasets: [{}]
         };
         if (!this.props.commits.length > 0) return data;
         data.labels = this._getLabels();

@@ -13,8 +13,7 @@ var CommitsLineChart = React.createClass({
         "use strict";
         return (
             <div className="graph-container">
-                <div id="chart-container"
-                     className="title">{this.props.translations.REPOSITORY_NAVIGATOR_ANALYTICS_FUTURE_COMMIT_CHART_TITLE}</div>
+                <div className="title">{this.props.translations.REPOSITORY_NAVIGATOR_ANALYTICS_FUTURE_COMMIT_CHART_TITLE}</div>
                 <LineChart
                     data={this._getChartData()}
                     width="1000" height="500" redraw/>
@@ -22,7 +21,7 @@ var CommitsLineChart = React.createClass({
         );
     },
 
-    _getFormattedDate: function(dateAsTimestamp) {
+    _getFormattedDate: function (dateAsTimestamp) {
         "use strict";
         var date = new Date(dateAsTimestamp);
         var day = date.getDate();
@@ -37,7 +36,7 @@ var CommitsLineChart = React.createClass({
         var dates = this._getBatchDates();
         var labels = [];
         var formattedDateFunc = this._getFormattedDate;
-        dates.map(function(date) {
+        dates.map(function (date) {
             labels.push(formattedDateFunc(date));
         });
         return labels;
@@ -112,7 +111,7 @@ var CommitsLineChart = React.createClass({
         "use strict";
         var data = {
             labels: [],
-            datasets: []
+            datasets: [{}]
         };
         if (!this.props.commits.length > 0) return data;
         data.labels = this._getLabels();
