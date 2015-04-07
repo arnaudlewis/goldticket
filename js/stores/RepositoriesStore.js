@@ -3,74 +3,139 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 var assign = require('object-assign');
 
+var _PER_PAGE;
+var _MAX_RESULTS;
+
 var _searchData = {};
 var _filter = {};
 var _form = {};
+var _page;
+
+if (sessionStorage.RepositoriesStore) {
+    repo = JSON.parse(sessionStorage.RepositoriesStore);
+    _searchData = repo.searchData;
+    _filter = repo.filter;
+    _form = repo.form;
+    _page = repo.page;
+    _PER_PAGE = repo.perPage;
+    _MAX_RESULTS = repo.maxResults;
+} else {
+    sessionStorage.RepositoriesStore = JSON.stringify({
+        searchData: _searchData,
+        filter: _filter,
+        form: _form,
+        page: _page,
+        perPage: _PER_PAGE,
+        maxResults: _MAX_RESULTS
+    });
+}
+
 
 var CHANGE_EVENT = 'change';
 var RepositoriesStore = assign({}, EventEmitter.prototype, {
 
-    emitChange: function() {
+    emitChange: function () {
         "use strict";
         this.emit(CHANGE_EVENT);
     },
 
-    addChangeListener: function(callback) {
+    addChangeListener: function (callback) {
         "use strict";
         this.on(CHANGE_EVENT, callback);
     },
 
-    removeChangeListener: function(callback) {
+    removeChangeListener: function (callback) {
         "use strict";
         this.removeListener(CHANGE_EVENT, callback);
     },
 
-    getSearchData: function() {
+    getSearchData: function () {
         "use strict";
         return _searchData;
     },
 
-    getRepositories: function() {
+    resetSearchData: function () {
         "use strict";
-        return _searchData.items ? _searchData.items : [];
+        _searchData = {};
     },
 
-    getCountRepositories: function() {
+    getRepositoriesPerPage: function () {
+        "use strict";
+        return _searchData[_page] ? _searchData[_page] : [];
+    },
+
+    getCountRepositories: function () {
         "use strict";
         return _searchData.total_count === undefined ? 0 : _searchData.total_count;
     },
 
-    selectFilter: function(filter) {
+    selectFilter: function (filter) {
         "use strict";
         _filter = filter;
     },
 
-    getFilter: function() {
+    getFilter: function () {
         "use strict";
         return _filter;
     },
 
-    getForm: function() {
+    getForm: function () {
         "use strict";
         return _form;
     },
 
-    updateFormField: function(fieldName, value) {
+    getCurrentPage: function () {
+        "use strict";
+        return _page;
+    },
+
+    hasMorePage: function () {
+        "use strict";
+        return _page * _PER_PAGE < this.getCountRepositories();
+    },
+
+    numberOfPages: function () {
+        "use strict";
+        return this.getCountRepositories() > _MAX_RESULTS ? parseInt(_MAX_RESULTS / _PER_PAGE) + 1 : parseInt(this.getCountRepositories() / _PER_PAGE) + 1;
+    },
+
+    updateFormField: function (fieldName, value) {
         "use strict";
         _form[fieldName] = value;
     }
 
 });
 
-AppDispatcher.register(function(payload) {
+AppDispatcher.register(function (payload) {
     "use strict";
     var action = payload;
-    switch(action.actionType) {
+    switch (action.actionType) {
         case Constants.SUBMIT_SEARCH :
-            _searchData = action.data;
+            _page = action.data.page;
+            _searchData[_page] = action.data.searchData.items;
+            _searchData.total_count = action.data.searchData.total_count;
+            _PER_PAGE = action.data.perPage;
+            _MAX_RESULTS = action.data.maxResults;
+            break;
+
+        case Constants.LOAD_CACHE_REPOSITORIES :
+            _page = action.data.page;
+            break;
+
+
+        case Constants.RESET_SEARCH_CACHE :
+            RepositoriesStore.resetSearchData();
             break;
     }
 
+    sessionStorage.RepositoriesStore = JSON.stringify({
+        searchData: _searchData,
+        filter: _filter,
+        form: _form,
+        page: _page,
+        perPage: _PER_PAGE,
+        maxResults: _MAX_RESULTS
+    });
     RepositoriesStore.emitChange();
 
     return true;

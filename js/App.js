@@ -13,10 +13,8 @@ var Repository = require('./components/repository/RepositoryComponent');
 var routes = (
     <Route name="app" path="/" handler={AppComponent}>
         <Route name="home" handler={Home}/>
-        <Route name="repositories" path='repositories' handler={Repositories}>
-            <Route name="repository" path=':repositoryId' handler={Repository}/>
-            <DefaultRoute handler={Repositories}/>
-        </Route>
+        <Route name="repositories" path='repositories' handler={Repositories}/>
+        <Route name="repository" path='/:ownerName/:repositoryName' handler={Repository}/>
         <DefaultRoute handler={Home}/>
     </Route>
 );

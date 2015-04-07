@@ -1,8 +1,8 @@
 var React = require('react');
 
-var HomeMain = require('./HomeMain');
-var HomeElementLeft = require('./HomeElementLeft');
-var HomeElementRight = require('./HomeElementRight');
+var HomeMain = require('./head/HomeMain');
+var HomeElementLeft = require('./body/HomeElementLeft');
+var HomeElementRight = require('./body/HomeElementRight');
 var TranslationStore = require('../../stores/TranslationStore');
 
 function getHomeState() {
@@ -40,7 +40,7 @@ var HomeComponent = React.createClass({
                              backgroundImgClass="element-wallpaper-light"
                              elementTitle={this.state.translations.HOME_ELEMENT_REPOSITORIES_TITLE}
                              elementText={this.state.translations.HOME_ELEMENT_REPOSITORIES_TEXT}
-                             elementImgUrl="img/components/home/discover-wallpaper.jpg"/>
+                             elementImgUrl="img/components/home/repositories.png"/>
 
                 <HomeElementLeft className="layer dark-layer"
                              backgroundImgClass="element-wallpaper-dark"

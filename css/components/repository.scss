@@ -1,17 +1,10 @@
-@import '../colors';
 @import '../mixin';
+@import '../colors';
 @import '../config_path';
 
-.repositories-component {
-  a {
-    text-decoration: none;
-    color: black;
-    :hover {
-      color: $repositories_head_title_color;
-    }
-  }
+.repository-component {
 
-  .repositories-header {
+  .repository-header {
     width: 100%;
     min-height: 20em;
     @include displayFlex;
@@ -20,83 +13,65 @@
     text-align: center;
     background-color: $home_element_wallpaper_dark;
 
+    .navigation-back {
+      align-self: flex-start;
+      font-size: 3em;
+      margin-left: 2rem;
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+
     .title {
       font-size: 5em;
-      @include flex(1);
-      a {
-        color: $repositories_head_title_color;
-        text-decoration: none;
-      }
+      @include flex(3);
+      color: $repositories_head_title_color;
     }
 
-    .form {
+    .basic-info {
       @include flex(1);
       padding: 2em;
-      @include displayFlex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
       text-align: center;
-
-      .error-msg {
-        color: $repositories_head_form_error_msg;
-        display: none;
-        margin-top: 2em;
-        &.active {
-          display: block;
-        }
-      }
-
-      .advance {
-        cursor: pointer;
-        margin: 0 0 1em 0;
-        a {
-          color: $repositories_head_form_advance_settings;
-          text-decoration: none;
-        }
-        i {
-          color: $repositories_head_form_advance_settings_icon;
-          margin-right: 0.5em;
-          line-height: 1em;
-        }
-      }
-
-      > div {
-        max-width: 40em;
-        width: 100%;
-
-        input {
-          width: 100%;
-        }
-      }
-
-      button {
+      @include displayFlex;
+      justify-content: center;
+      .info-content {
+        @include displayFlex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        color: white;
         max-width: 10em;
-        width: 100%;
+        font-size: 2em;
+        > div {
+          height: 2.5em;
+          max-width: 10em;
+          text-align: right;
+
+          &.stars, &.forks {
+            width: 6em;
+          }
+
+          &.language {
+            font-size: 3rem;
+            font-weight: bold;
+          }
+        }
+
+        i {
+          margin-right: 1em;
+          height: 1em;
+          width: 1em;
+          text-align: center;
+          float: left;
+        }
       }
     }
   }
 
-  .repositories-tools {
-    display: flex;
-    text-align: center;
-    padding: 2em;
-    .sort-box {
-      max-width: 15em;
-    }
-    .repositories-count-box {
-      text-align: left;
-      @include flex(1);
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-  }
+  .repository-container {
 
-  .repositories-table-list {
-    padding: 2em;
-    text-align: center;
-
-    .repository {
+    .committer {
       display: inline-block;
       width: 25em;
       text-align: left;
@@ -104,8 +79,16 @@
       margin: 1em;
       min-height: 10em;
 
-      .repository-content {
+      .committer-content {
         @include displayFlex;
+
+        a {
+          color: black;
+          text-decoration: none;
+          &:hover {
+            color: $repositories_head_title_color;
+          }
+        }
 
         .base-informations {
           @include flex(2);
@@ -183,15 +166,6 @@
         }
       }
     }
-  }
 
-  .paginator {
-    display: none;
-    margin: 2em;
-    @include displayFlex;
-    float: right;
-    > button, select {
-      width: 7em;
-    }
   }
 }

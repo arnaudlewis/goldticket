@@ -11,7 +11,7 @@ function getFormState() {
     "use strict";
     return {
         translations: TranslationStore.getTranslations(),
-        searchData: RepositoriesStore.getSearchData()
+        formData: RepositoriesStore.getForm()
     }
 }
 
@@ -20,11 +20,8 @@ var fields = {
     languageField: 'language',
     starField: 'stars',
     userField: 'user',
-    nbForks: 'fork',
-    dateCreationOrPush: 'date'
+    nbForks: 'fork'
 };
-
-var searchData = {};
 
 var Form = React.createClass({
 
@@ -48,13 +45,12 @@ var Form = React.createClass({
     },
 
     render: function () {
-        "use strict";
         return (
             <form onSubmit={this._handleSubmit} className="form">
                 <div className="form-group" id={fields.descriptionField}>
                     <input type="text" className="form-control"
                            name={fields.descriptionField}
-                           value={this.state.searchData[fields.descriptionField]}
+                           defaultValue={this.state.formData[fields.descriptionField]}
                            onChange={this._updateField}
                            onKeyDown={this._handleKeyDown}
                            placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
@@ -63,7 +59,7 @@ var Form = React.createClass({
                 <div className="form-group" id={fields.languageField}>
                     <input type="text" className="form-control"
                            name={fields.languageField}
-                           value={this.state.searchData[fields.languageField]}
+                           defaultValue={this.state.formData[fields.languageField]}
                            onChange={this._updateField}
                            onKeyDown={this._handleKeyDown}
                            placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
@@ -72,7 +68,7 @@ var Form = React.createClass({
                 <span className="advance">
                     <i className="glyphicon glyphicon-cog" />
                     <a data-toggle="collapse" href="#advanceSettings" aria-expanded="false">
-                        advance settings
+                        {this.state.translations.REPOSITORIES_HEAD_FORM_ADVANCE_SETTINGS}
                     </a>
                     </span>
 
@@ -80,27 +76,19 @@ var Form = React.createClass({
                     <div className="form-group">
                         <input type="text" className="form-control"
                                name={fields.userField}
-                               value={this.state.searchData[fields.userField]}
+                               defaultValue={this.state.formData[fields.userField]}
                                onChange={this._updateField}
                                onKeyDown={this._handleKeyDown}
                                placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_USER_FIELD}/>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="text" className="form-control"
-                               name={fields.dateCreationOrPush}
-                               value={this.state.searchData[fields.dateCreationOrPush]}
-                               onChange={this._updateField}
-                               onKeyDown={this._handleKeyDown}
-                               placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_DATE}/>
                     </div>
                 </div>
 
                 <button className="btn btn-warning">{this.state.translations.VALIDATE}</button>
 
-                <span id="error-msg" className="error-msg"> Vous devez remplir un des champs de recherche par nom ou par language.</span>
+                <span id="error-msg" className="error-msg">{this.state.translations.REPOSITORIES_HEAD_FORM_ERROR}</span>
             </form>
         )
+        "use strict";
     },
 
     _updateField: function (event) {
@@ -135,7 +123,7 @@ var Form = React.createClass({
 
     _checkValidParam: function(form) {
         "use strict";
-        return form[fields.descriptionField] || form[fields.languageField];
+        return form[fields.descriptionField] || form[fields.languageField] || form[fields.userField];
     },
 
     _showFormValidationError: function() {

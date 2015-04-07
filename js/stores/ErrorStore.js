@@ -28,6 +28,11 @@ var ErrorStore = assign({}, EventEmitter.prototype, {
     getError: function() {
         "use strict";
         return _error;
+    },
+
+    reset: function() {
+        "use strict";
+        _error = {};
     }
 });
 

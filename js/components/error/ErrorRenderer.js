@@ -30,7 +30,9 @@ var ErrorRenderer = React.createClass({
     _onChange: function() {
         "use strict";
         this.setState(getErrorState);
-        if(this.state.error.code) this.showError();
+        if(this.state.error.code) {
+            this.showError();
+        }
     },
 
     render: function () {

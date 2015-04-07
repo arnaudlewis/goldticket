@@ -1,32 +1,12 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
-var TranslationStore = require('../../../stores/TranslationStore');
 var Form = require('./Form');
-
-function getRepositoriesHeaderState() {
-    "use strict";
-    return {
-        translations: TranslationStore.getTranslations()
-    }
-}
 
 var RepositoriesHeader = React.createClass({
 
-    getInitialState: function() {
-        "use strict";
-        return (
-            getRepositoriesHeaderState()
-        )
-    },
-
-    componentDidMount: function() {
-        "use strict";
-        TranslationStore.addChangeListener(this._onChange);
-    },
-
-    componentWillUnmount: function() {
-        "use strict";
-        TranslationStore.removeChangeListener(this._onChange);
+    propTypes: {
+        translations: React.PropTypes.object
     },
 
     render: function () {
@@ -34,16 +14,11 @@ var RepositoriesHeader = React.createClass({
         return (
             <div className="repositories-header">
                 <div className="title">
-                    {this.state.translations.REPOSITORIES_HEADER_TITLE}
+                    <Link to="home">{this.props.translations.REPOSITORIES_HEADER_TITLE}</Link>
                 </div>
                 <Form />
             </div>
         )
-    },
-
-    _onChange: function() {
-        "use strict";
-        this.setState(getRepositoriesHeaderState);
     }
 });
 

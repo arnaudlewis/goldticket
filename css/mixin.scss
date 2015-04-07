@@ -36,3 +36,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@mixin ellipsis() {
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
