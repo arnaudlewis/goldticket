@@ -16,7 +16,7 @@
   "REPOSITORIES_HEAD_FORM_SEARCH_FIELD": "Nom, description",
   "REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD": "Langage",
   "REPOSITORIES_HEAD_FORM_USER_FIELD": "Utilisateur",
-  "REPOSITORIES_HEAD_FORM_ERROR": "Vous devez remplir un des champs de recherche par nom ou par language.",
+  "REPOSITORIES_HEAD_FORM_ERROR": "Vous devez remplir un des champs de recherche par nom, par langage ou par utilisateur.",
   "REPOSITORIES_HEAD_FORM_ADVANCE_SETTINGS": "Paramètres avancés",
   "REPOSITORIES_LIST_TOOLS_COUNT": "Il y a {{countRepositories}} dépôts disponibles",
   "REPOSITORIES_LIST_TOOLS_SORT_BOX_BEST_MATCH": "Pertinence",
