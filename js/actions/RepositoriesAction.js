@@ -71,9 +71,6 @@ var RepositoriesAction = {
         var baseSearchPath = githubApiPath + "/search/repositories";
         var data = buildQueryParams(form, filter, page);
         $.ajax({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:touchepasamonpassword"));
-            },
             url: baseSearchPath,
             type: 'GET',
             page: data.page,

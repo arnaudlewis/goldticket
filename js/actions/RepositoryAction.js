@@ -39,18 +39,12 @@ var RepositoryAction = {
             $.ajax({
                 url: repoPath,
                 type: 'GET',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:touchepasamonpassword"));
-                },
                 contentType: 'application/json; charset=utf-8'
             }),
 
             $.ajax({
                 url: commitsPath,
                 type: 'GET',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:touchepasamonpassword"));
-                },
                 data: {per_page: COMMITS_MAX},
                 contentType: 'application/json; charset=utf-8'
             })
