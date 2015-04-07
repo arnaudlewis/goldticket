@@ -40,7 +40,7 @@ var RepositoryAction = {
                 url: repoPath,
                 type: 'GET',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:Xps2.100silver"));
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:touchepasamonpassword"));
                 },
                 contentType: 'application/json; charset=utf-8'
             }),
@@ -49,7 +49,7 @@ var RepositoryAction = {
                 url: commitsPath,
                 type: 'GET',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:Xps2.100silver"));
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa("arnaudlewis:touchepasamonpassword"));
                 },
                 data: {per_page: COMMITS_MAX},
                 contentType: 'application/json; charset=utf-8'
