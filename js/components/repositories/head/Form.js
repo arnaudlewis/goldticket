@@ -18,9 +18,9 @@ function getFormState() {
 var fields = {
     descriptionField: 'description',
     languageField: 'language',
-    starField: 'stars',
-    userField: 'user',
-    nbForks: 'fork'
+    userField: 'user'
+    //starField: 'stars',
+    //nbForks: 'fork'
 };
 
 var Form = React.createClass({
@@ -56,15 +56,6 @@ var Form = React.createClass({
                            placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
                 </div>
 
-                <div className="form-group" id={fields.languageField}>
-                    <input type="text" className="form-control"
-                           name={fields.languageField}
-                           defaultValue={this.state.formData[fields.languageField]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
-                </div>
-
                 <span className="advance">
                     <i className="glyphicon glyphicon-cog" />
                     <a data-toggle="collapse" href="#advanceSettings" aria-expanded="false">
@@ -74,6 +65,15 @@ var Form = React.createClass({
 
                 <div id="advanceSettings" className="panel-collapse collapse">
                     <div className="form-group">
+                        <div className="form-group" id={fields.languageField}>
+                            <input type="text" className="form-control"
+                                   name={fields.languageField}
+                                   defaultValue={this.state.formData[fields.languageField]}
+                                   onChange={this._updateField}
+                                   onKeyDown={this._handleKeyDown}
+                                   placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
+                        </div>
+
                         <input type="text" className="form-control"
                                name={fields.userField}
                                defaultValue={this.state.formData[fields.userField]}
@@ -87,8 +87,7 @@ var Form = React.createClass({
 
                 <span id="error-msg" className="error-msg">{this.state.translations.REPOSITORIES_HEAD_FORM_ERROR}</span>
             </form>
-        )
-        "use strict";
+        );
     },
 
     _updateField: function (event) {
@@ -123,7 +122,10 @@ var Form = React.createClass({
 
     _checkValidParam: function(form) {
         "use strict";
-        return form[fields.descriptionField] || form[fields.languageField] || form[fields.userField];
+        for(var field in fields) {
+            if(form[fields[field]].trim().length > 0) return true;
+        }
+        return false;
     },
 
     _showFormValidationError: function() {

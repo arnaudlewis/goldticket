@@ -345,7 +345,8 @@ body {
           -moz-box-flex: 1;
           -moz-flex: 1;
           flex: 1;
-          box-flex: 1; }
+          box-flex: 1;
+          max-width: 100%; }
           .repositories-component .repositories-table-list .repository .repository-content .base-informations .description .desc-content {
             display: -webkit-box;
             -webkit-line-clamp: 3;

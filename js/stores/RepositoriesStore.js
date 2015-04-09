@@ -91,7 +91,7 @@ var RepositoriesStore = assign({}, EventEmitter.prototype, {
 
     hasMorePage: function () {
         "use strict";
-        return _page * _PER_PAGE < this.getCountRepositories();
+        return _page * _PER_PAGE < this.getCountRepositories() && _page * _PER_PAGE < _MAX_RESULTS;
     },
 
     numberOfPages: function () {

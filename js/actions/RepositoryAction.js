@@ -7,23 +7,11 @@ const githubApiPath = "https://api.github.com";
 
 var commitsCounter = 0;
 
-function buildCommitterList(commits) {
-    var committerList = {};
-    commits.forEach(function (commit) {
-        if (commit.committer && !committerList[commit.committer.id]) {
-            committerList[commit.committer.id] = commit.committer;
-        }
-    });
-    return $.map(committerList, function (committer) {
-        return committer;
-    });
-}
-
-function buildResponse(repository, commits) {
+function buildResponse(repository, commits, committers) {
     "use strict";
     var data = repository;
-    data.committers = buildCommitterList(commits);
     data.commits = commits;
+    data.committers = committers;
     commitsCounter += commits.length;
     return data;
 }
@@ -35,6 +23,7 @@ var RepositoryAction = {
         commitsCounter = 0;
         var repoPath = githubApiPath + '/repos/' + ownerName + '/' + repositoryName;
         var commitsPath = repoPath + '/commits';
+        var committersPath = repoPath + '/contributors';
         $.when(
             $.ajax({
                 url: repoPath,
@@ -47,11 +36,17 @@ var RepositoryAction = {
                 type: 'GET',
                 data: {per_page: COMMITS_MAX},
                 contentType: 'application/json; charset=utf-8'
+            }),
+
+            $.ajax({
+                url: committersPath,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8'
             })
         )
 
-            .done(function (repoCallback, commitsCallback) {
-                var repository = buildResponse(repoCallback[0], commitsCallback[0]);
+            .done(function (repoCallback, commitsCallback, committersCallback) {
+                var repository = buildResponse(repoCallback[0], commitsCallback[0], committersCallback[0]);
                 AppDispatcher.dispatch({
                     actionType: Constants.LOAD_REPOSITORY_BY_NAME,
                     data: repository

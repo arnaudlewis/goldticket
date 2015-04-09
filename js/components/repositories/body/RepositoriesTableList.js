@@ -11,6 +11,7 @@ var RepositoriesTableList = React.createClass({
         repositories: React.PropTypes.array,
         currentPage: React.PropTypes.number,
         hasMorePage: React.PropTypes.bool,
+        countRepositories: React.PropTypes.number,
         numberOfPages: React.PropTypes.number,
         form: React.PropTypes.object,
         filter: React.PropTypes.object,
@@ -20,6 +21,7 @@ var RepositoriesTableList = React.createClass({
 
     render: function () {
         "use strict";
+        var countRepositories = this.props.countRepositories;
         var repositories = this.props.repositories.map(function (repository) {
             return <Repository
                 key={repository.id}
@@ -40,6 +42,7 @@ var RepositoriesTableList = React.createClass({
                 <Paginator currentPage={this.props.currentPage}
                            hasMore={this.props.hasMorePage}
                            loadMore={this._changePage}
+                           countRepositories={countRepositories}
                            numberOfPages={this.props.numberOfPages}
                            translations={this.props.translations}
                     />

@@ -138,6 +138,7 @@
 
           .description {
             @include flex(1);
+            max-width: 100%;
 
             .desc-content {
               @include lineClamp(3);

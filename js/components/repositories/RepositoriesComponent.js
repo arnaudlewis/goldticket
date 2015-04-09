@@ -56,6 +56,7 @@ var RepositoriesComponent = React.createClass({
                     form={this.state.form}/>
                 <RepositoriesTableList
                     repositories={this.state.repositories}
+                    countRepositories={this.state.countRepositories}
                     currentPage={this.state.currentPage}
                     hasMorePage={this.state.hasMorePage}
                     numberOfPages={this.state.numberOfPages}

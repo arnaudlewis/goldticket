@@ -5,6 +5,7 @@ var Paginator = React.createClass({
     propTypes : {
         currentPage: React.PropTypes.number,
         hasMore: React.PropTypes.bool,
+        countRepositories: React.PropTypes.number,
         loadMore: React.PropTypes.func,
         translations: React.PropTypes.object
     },
@@ -41,8 +42,8 @@ var Paginator = React.createClass({
     _manageNextButtonVisibility: function () {
         "use strict";
         var nextNode = $('#next');
-        if (this._hasMorePages) nextNode.show();
-        else nextNode.hide();
+        if (this._hasMorePages()) nextNode.css({"visibility":"visible"});
+        else nextNode.css({"visibility":"hidden"});
     },
 
     _isFirstPage: function () {
@@ -57,7 +58,7 @@ var Paginator = React.createClass({
 
     _searchIsActive: function () {
         "use strict";
-        return this.props.currentPage;
+        return this.props.countRepositories > 0;
     },
 
     render: function () {
@@ -78,17 +79,17 @@ var Paginator = React.createClass({
 
     _loadPreviousPage: function () {
         "use strict";
-        if (this.props.currentPage > 1) this.props.loadMore(this.props.currentPage - 1)
+        if (!this._isFirstPage()) this.props.loadMore(this.props.currentPage - 1)
     },
 
     _loadNextPage: function () {
         "use strict";
-        if (this.props.hasMore) this.props.loadMore(this.props.currentPage + 1);
+        if (this._hasMorePages()) this.props.loadMore(this.props.currentPage + 1);
     },
 
     _loadPageNumber: function (event) {
         "use strict";
-        var pageNumber = event.target.value;
+        var pageNumber = parseInt(event.target.value);
         this.props.loadMore(pageNumber);
     }
 });

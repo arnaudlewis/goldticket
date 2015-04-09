@@ -25,17 +25,17 @@ var RepositoryStore = assign({}, EventEmitter.prototype, {
 
     getRepositoryByName: function (ownerName, repositoryName) {
         "use strict";
-        return _repositories[repositoryName] ? _repositories[repositoryName] : {};
+        return _repositories[ownerName] &&  _repositories[ownerName][repositoryName] ? _repositories[ownerName][repositoryName] : {};
     },
 
     getCommitters: function (ownerName, repositoryName) {
         "use strict";
-        return _repositories[repositoryName] ? _repositories[repositoryName].committers : [];
+        return _repositories[ownerName] &&  _repositories[ownerName][repositoryName] ? _repositories[ownerName][repositoryName].committers : [];
     },
 
     getCommits: function (ownerName, repositoryName) {
         "use strict";
-        return _repositories[repositoryName] ? _repositories[repositoryName].commits : [];
+        return _repositories[ownerName] &&  _repositories[ownerName][repositoryName] ? _repositories[ownerName][repositoryName].commits : [];
     }
 });
 
@@ -45,7 +45,8 @@ AppDispatcher.register(function (payload) {
     var action = payload;
     switch (action.actionType) {
         case Constants.LOAD_REPOSITORY_BY_NAME :
-            _repositories[action.data.name] = action.data;
+            if(!_repositories[action.data.owner.login]) _repositories[action.data.owner.login] = [];
+            _repositories[action.data.owner.login][action.data.name] = action.data;
             break;
     }
     RepositoryStore.emitChange();

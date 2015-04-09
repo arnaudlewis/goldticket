@@ -6,6 +6,8 @@ const _SEPARATOR = ' ';
 const _PER_PAGE = 60;
 const _MAX_RESULTS = 1000;
 const githubApiPath = "https://api.github.com";
+const WRONG_REPOSITORY_SEARCH_STATUS = 422;
+
 
 function insertSeparator(separator, query) {
     "use strict";
@@ -50,6 +52,11 @@ function buildQueryParams(form, filter, page) {
     return data;
 }
 
+function showErrorNoResult() {
+    "use strict";
+    ErrorAction.showErrorTranslation("ERROR_NO_RESULT_TITLE", "ERROR_NO_RESULT_TEXT");
+}
+
 var RepositoriesAction = {
 
     submitSearch: function (form, filter, page) {
@@ -78,14 +85,16 @@ var RepositoriesAction = {
             data: data
         })
             .done(function (data, textStatus, xhr) {
+                if (data.total_count === 0) showErrorNoResult();
                 if (data.incomplete_results === true) ErrorAction.showErrorTranslation("ERROR_INCOMPLETE_RESULTS_TITLE", "ERROR_INCOMPLETE_RESULTS_TEXT");
                 AppDispatcher.dispatch({
                     actionType: Constants.SUBMIT_SEARCH,
                     data: {searchData: data, page: this.page, perPage: _PER_PAGE, maxResults: _MAX_RESULTS}
                 })
             })
-            .fail(function (xhr, textStatus, error) {
-                ErrorAction.showError(xhr.status, xhr.responseJSON.message);
+            .error(function (xhr, textStatus, error) {
+                if(xhr.status === WRONG_REPOSITORY_SEARCH_STATUS) showErrorNoResult();
+                else ErrorAction.showError(xhr.status, xhr.responseJSON.message);
             });
     },
 

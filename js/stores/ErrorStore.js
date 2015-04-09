@@ -6,6 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var TranslationStore = require('./TranslationStore');
 
 var _error = {};
+var active = false;
 
 var CHANGE_EVENT = 'change';
 var ErrorStore = assign({}, EventEmitter.prototype, {
@@ -32,7 +33,12 @@ var ErrorStore = assign({}, EventEmitter.prototype, {
 
     reset: function() {
         "use strict";
-        _error = {};
+        active = false;
+    },
+
+    getActive: function() {
+        "use strict";
+        return active;
     }
 });
 
@@ -42,14 +48,15 @@ AppDispatcher.register(function (payload) {
     switch (action.actionType) {
         case Constants.SHOW_ERROR :
             _error = action.data;
+            ErrorStore.emitChange();
             break;
 
         case Constants.SHOW_ERROR_TRANSLATION :
             var translations = TranslationStore.getTranslations();
             _error = {code: translations[action.data.code], message: translations[action.data.message]} ;
+            ErrorStore.emitChange();
             break;
     }
-    ErrorStore.emitChange();
     return true;
 });
 

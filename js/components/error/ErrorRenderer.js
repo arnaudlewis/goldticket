@@ -1,6 +1,9 @@
 var React = require('react');
+var Router = require('react-router');
 
 var ErrorStore = require('../../stores/ErrorStore');
+
+const EMPTY_REPOSITORY_STATUS = 409;
 
 function getErrorState() {
     "use strict";
@@ -10,36 +13,37 @@ function getErrorState() {
 }
 var ErrorRenderer = React.createClass({
 
-    getInitialState: function() {
+    mixins : [Router.Navigation],
+
+    getInitialState: function () {
         "use strict";
         return (
             getErrorState()
         )
     },
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         "use strict";
         ErrorStore.addChangeListener(this._onChange);
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         "use strict";
         ErrorStore.removeChangeListener(this._onChange);
     },
 
-    _onChange: function() {
+    _onChange: function () {
         "use strict";
         this.setState(getErrorState);
-        if(this.state.error.code) {
-            this.showError();
-        }
+        this.showError();
+        if(this.state.error.code === EMPTY_REPOSITORY_STATUS) this.transitionTo('repositories');
     },
 
     render: function () {
         "use strict";
         return (
             <div id="windowAlert" className="alert">
-                <span>Error : {this.state.error.code}</span>
+                <span>{this.state.error.code}</span>
                 <hr/>
                 <span id="alertMessage">
                     {this.state.error.message}
@@ -48,7 +52,7 @@ var ErrorRenderer = React.createClass({
         );
     },
 
-    showError: function() {
+    showError: function () {
         "use strict";
         var alert = $("#windowAlert");
         alert.fadeIn();
