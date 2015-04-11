@@ -55,6 +55,12 @@ gulp.task('deploy', ['sass'], function () {
         .pipe(gulp.dest('./dist/img'));
     gulp.src('./translations/**')
         .pipe(gulp.dest('./dist/translations'));
+
+    gulp.src('./node_modules/bootstrap/dist/**')
+        .pipe(gulp.dest('./dist/libs/bootstrap'));
+
+    gulp.src('./node_modules/font-awesome/**')
+        .pipe(gulp.dest('./dist/libs/font-awesome'));
 });
 
 gulp.task('default', ['browserify', 'watchcss']);
