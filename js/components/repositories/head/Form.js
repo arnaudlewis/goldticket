@@ -123,7 +123,7 @@ var Form = React.createClass({
     _checkValidParam: function(form) {
         "use strict";
         for(var field in fields) {
-            if(form[fields[field]].trim().length > 0) return true;
+            if(form[fields[field]] && form[fields[field]].trim().length > 0) return true;
         }
         return false;
     },
