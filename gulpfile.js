@@ -6,35 +6,55 @@ var reactify = require('reactify');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
     var bundler = browserify({
         entries: ['./js/app.js'],
         transform: [reactify],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     });
-    var watcher  = watchify(bundler);
+    var watcher = watchify(bundler);
 
     return watcher
         .on('update', function () {
             watcher.bundle()
                 .pipe(source('App.js'))
-                .pipe(gulp.dest('./build/'));
+                .pipe(gulp.dest('./dist/'));
         })
         .bundle() // Create the initial bundle when starting the task
         .pipe(source('App.js'))
-        .pipe(gulp.dest('./build/'));
+        .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('sass', function () {
     gulp.src(['css/*.scss', 'css/**/*.scss'])
         .pipe(sass())
         .pipe(concat('style.css'))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watchcss', function() {
+gulp.task('watchcss', function () {
     gulp.watch('css/**/*.scss', ['sass']);
+});
+
+gulp.task('deploy', ['sass'], function () {
+    "use strict";
+    var b = browserify({
+        entries: ['./js/app.js'],
+        transform: [reactify],
+        debug: true,
+        cache: {}, packageCache: {}, fullPaths: true
+    });
+    b.bundle() // Create the initial bundle when starting the task
+        .pipe(source('App.js'))
+        .pipe(gulp.dest('./dist/'));
+
+    gulp.src('./index.html')
+        .pipe(gulp.dest('./dist'));
+    gulp.src('./img/**')
+        .pipe(gulp.dest('./dist/img'));
+    gulp.src('./translations/**')
+        .pipe(gulp.dest('./dist/translations'));
 });
 
 gulp.task('default', ['browserify', 'watchcss']);
