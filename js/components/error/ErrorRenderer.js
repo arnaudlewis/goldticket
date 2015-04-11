@@ -2,8 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 
 var ErrorStore = require('../../stores/ErrorStore');
-
-const EMPTY_REPOSITORY_STATUS = 409;
+var ErrorCode = require('../../constants/GithubApiConstants').ERROR_CODE;
 
 function getErrorState() {
     "use strict";
@@ -36,7 +35,7 @@ var ErrorRenderer = React.createClass({
         "use strict";
         this.setState(getErrorState);
         this.showError();
-        if(this.state.error.code === EMPTY_REPOSITORY_STATUS) this.transitionTo('repositories');
+        if(this.state.error.code === ErrorCode.EMPTY_REPOSITORY_STATUS) this.transitionTo('repositories');
     },
 
     render: function () {

@@ -1,13 +1,9 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 var ErrorAction = require('./ErrorAction');
-
-const _SEPARATOR = ' ';
-const _PER_PAGE = 60;
-const _MAX_RESULTS = 1000;
-const githubApiPath = "https://api.github.com";
-const WRONG_REPOSITORY_SEARCH_STATUS = 422;
-
+var ApiConstants = require('../constants/GithubApiConstants');
+var BrowseConst = ApiConstants.BROWSE_CONSTANTS;
+var ErrorCode = ApiConstants.ERROR_CODE;
 
 function insertSeparator(separator, query) {
     "use strict";
@@ -18,7 +14,7 @@ function insertSeparator(separator, query) {
 function insertDataParam(dataQuery, formParam, identifier) {
     "use strict";
     if (formParam) {
-        dataQuery = insertSeparator(_SEPARATOR, dataQuery);
+        dataQuery = insertSeparator(BrowseConst.SEPARATOR, dataQuery);
         if (identifier) return dataQuery + identifier + ':' + formParam;
         else return dataQuery + formParam;
     } else {
@@ -48,7 +44,7 @@ function buildQueryParams(form, filter, page) {
     } else {
         data.page = 1;
     }
-    data.per_page = _PER_PAGE;
+    data.per_page = BrowseConst.PER_PAGE;
     return data;
 }
 
@@ -75,7 +71,7 @@ var RepositoriesAction = {
 
     loadNewPageFromApi: function (form, filter, page) {
         "use strict";
-        var baseSearchPath = githubApiPath + "/search/repositories";
+        var baseSearchPath = BrowseConst.GITHUB_API_PATH + "/search/repositories";
         var data = buildQueryParams(form, filter, page);
         $.ajax({
             url: baseSearchPath,
@@ -89,11 +85,11 @@ var RepositoriesAction = {
                 if (data.incomplete_results === true) ErrorAction.showErrorTranslation("ERROR_INCOMPLETE_RESULTS_TITLE", "ERROR_INCOMPLETE_RESULTS_TEXT");
                 AppDispatcher.dispatch({
                     actionType: Constants.SUBMIT_SEARCH,
-                    data: {searchData: data, page: this.page, perPage: _PER_PAGE, maxResults: _MAX_RESULTS}
+                    data: {searchData: data, page: this.page, perPage: BrowseConst.PER_PAGE, maxResults: BrowseConst.MAX_RESULTS}
                 })
             })
             .error(function (xhr, textStatus, error) {
-                if(xhr.status === WRONG_REPOSITORY_SEARCH_STATUS) showErrorNoResult();
+                if(xhr.status === ErrorCode.WRONG_REPOSITORY_SEARCH_STATUS) showErrorNoResult();
                 else ErrorAction.showError(xhr.status, xhr.responseJSON.message);
             });
     },
