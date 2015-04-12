@@ -13,30 +13,33 @@ function getFormState() {
     }
 }
 
+var regexString = '^[\\w.\\-_]+$';
+var regexNumberWithInterval = '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$';
+
 var fields = {
     descriptionField: {
         name: 'description',
-        validation: '^[\\w.\\-_]+$'
+        validation: regexString
     },
     languageField: {
         name: 'language',
-        validation: '^[\\w.\\-_]+$'
+        validation: regexString
     },
     userField: {
         name: 'user',
-        validation: '^[\\w.\\-_]+$'
+        validation: regexString
     },
     starField: {
         name: 'stars',
-        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+        validation: regexNumberWithInterval
     },
     forkField: {
         name: 'forks',
-        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+        validation: regexNumberWithInterval
     },
     sizeField: {
         name: 'size',
-        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+        validation: regexNumberWithInterval
     }
 };
 
@@ -178,7 +181,6 @@ var Form = React.createClass({
             }
         }
         return !(filledField === 0 || inError);
-
     },
 
     _showFormValidationError: function () {
