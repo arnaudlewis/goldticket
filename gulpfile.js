@@ -30,7 +30,7 @@ gulp.task('sass', function () {
     gulp.src(['css/*.scss', 'css/**/*.scss'])
         .pipe(sass())
         .pipe(concat('style.css'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('watchcss', function () {
@@ -47,20 +47,7 @@ gulp.task('deploy', ['sass'], function () {
     });
     b.bundle() // Create the initial bundle when starting the task
         .pipe(source('App.js'))
-        .pipe(gulp.dest('./dist/'));
-
-    gulp.src('./index.html')
-        .pipe(gulp.dest('./dist'));
-    gulp.src('./img/**')
-        .pipe(gulp.dest('./dist/img'));
-    gulp.src('./translations/**')
-        .pipe(gulp.dest('./dist/translations'));
-
-    gulp.src('./node_modules/bootstrap/dist/**')
-        .pipe(gulp.dest('./dist/libs/bootstrap'));
-
-    gulp.src('./node_modules/font-awesome/**')
-        .pipe(gulp.dest('./dist/libs/font-awesome'));
+        .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('default', ['browserify', 'watchcss']);

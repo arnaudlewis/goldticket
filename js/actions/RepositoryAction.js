@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 var ErrorAction = require('./ErrorAction');
 var ApiConst = require('../constants/GithubApiConstants');
+var BrowseConst = ApiConst.BROWSE_CONSTANTS;
 
 var commitsCounter = 0;
 
@@ -19,7 +20,7 @@ var RepositoryAction = {
     loadRepositoryByName: function (ownerName, repositoryName) {
         "use strict";
         commitsCounter = 0;
-        var repoPath = ApiConst.GITHUB_API_PATH + '/repos/' + ownerName + '/' + repositoryName;
+        var repoPath = BrowseConst.GITHUB_API_PATH + '/repos/' + ownerName + '/' + repositoryName;
         var commitsPath = repoPath + '/commits';
         var committersPath = repoPath + '/contributors';
         $.when(
@@ -32,7 +33,7 @@ var RepositoryAction = {
             $.ajax({
                 url: commitsPath,
                 type: 'GET',
-                data: {per_page: ApiConst.COMMITS_MAX},
+                data: {per_page: BrowseConst.COMMITS_MAX},
                 contentType: 'application/json; charset=utf-8'
             }),
 
