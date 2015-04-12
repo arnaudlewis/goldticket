@@ -47,6 +47,11 @@
         }
       }
 
+      input {
+        width: 100%;
+        margin: 0 0 1em 0;
+      }
+
       .advance {
         cursor: pointer;
         margin: 0 0 1em 0;
@@ -62,12 +67,7 @@
       }
 
       > div {
-        max-width: 40em;
         width: 100%;
-
-        input {
-          width: 100%;
-        }
       }
 
       button {

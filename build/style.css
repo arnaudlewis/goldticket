@@ -217,6 +217,9 @@ body {
       margin-top: 2em; }
       .repositories-component .repositories-header .form .error-msg.active {
         display: block; }
+    .repositories-component .repositories-header .form input {
+      width: 100%;
+      margin: 0 0 1em 0; }
     .repositories-component .repositories-header .form .advance {
       cursor: pointer;
       margin: 0 0 1em 0; }
@@ -228,10 +231,7 @@ body {
         margin-right: 0.5em;
         line-height: 1em; }
     .repositories-component .repositories-header .form > div {
-      max-width: 40em;
       width: 100%; }
-      .repositories-component .repositories-header .form > div input {
-        width: 100%; }
     .repositories-component .repositories-header .form button {
       max-width: 10em;
       width: 100%; }

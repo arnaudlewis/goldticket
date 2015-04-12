@@ -1,7 +1,6 @@
 var React = require('react');
 var jQuery = require('jquery');
 
-var TranslationStore = require('../../../stores/TranslationStore');
 var RepositoriesStore = require('../../../stores/RepositoriesStore');
 var RepositoriesAction = require('../../../actions/RepositoriesAction');
 
@@ -10,20 +9,42 @@ var ENTER_CODE = 13;
 function getFormState() {
     "use strict";
     return {
-        translations: TranslationStore.getTranslations(),
         formData: RepositoriesStore.getForm()
     }
 }
 
 var fields = {
-    descriptionField: 'description',
-    languageField: 'language',
-    userField: 'user'
-    //starField: 'stars',
-    //nbForks: 'fork'
+    descriptionField: {
+        name: 'description',
+        validation: '^[\\w.\\-_]+$'
+    },
+    languageField: {
+        name: 'language',
+        validation: '^[\\w.\\-_]+$'
+    },
+    userField: {
+        name: 'user',
+        validation: '^[\\w.\\-_]+$'
+    },
+    starField: {
+        name: 'stars',
+        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+    },
+    forkField: {
+        name: 'forks',
+        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+    },
+    sizeField: {
+        name: 'size',
+        validation: '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$'
+    }
 };
 
 var Form = React.createClass({
+
+    propTypes: {
+        translations: React.PropTypes.object
+    },
 
     getInitialState: function () {
         "use strict";
@@ -34,58 +55,71 @@ var Form = React.createClass({
 
     componentDidMount: function () {
         "use strict";
-        TranslationStore.addChangeListener(this._onChange);
         RepositoriesStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function () {
         "use strict";
-        TranslationStore.removeChangeListener(this._onChange);
         RepositoriesStore.removeChangeListener(this._onChange);
     },
 
     render: function () {
         return (
             <form onSubmit={this._handleSubmit} className="form">
-                <div className="form-group" id={fields.descriptionField}>
-                    <input type="text" className="form-control"
-                           name={fields.descriptionField}
-                           defaultValue={this.state.formData[fields.descriptionField]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
-                </div>
+                <input type="text" className="form-control"
+                       name={fields.descriptionField.name}
+                       defaultValue={this.state.formData[fields.descriptionField]}
+                       onChange={this._updateField}
+                       onKeyDown={this._handleKeyDown}
+                       placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
 
                 <span className="advance">
-                    <i className="glyphicon glyphicon-cog" />
+                    <i className="glyphicon glyphicon-cog"/>
                     <a data-toggle="collapse" href="#advanceSettings" aria-expanded="false">
-                        {this.state.translations.REPOSITORIES_HEAD_FORM_ADVANCE_SETTINGS}
+                        {this.props.translations.REPOSITORIES_HEAD_FORM_ADVANCE_SETTINGS}
                     </a>
                     </span>
 
                 <div id="advanceSettings" className="panel-collapse collapse">
-                    <div className="form-group">
-                        <div className="form-group" id={fields.languageField}>
-                            <input type="text" className="form-control"
-                                   name={fields.languageField}
-                                   defaultValue={this.state.formData[fields.languageField]}
-                                   onChange={this._updateField}
-                                   onKeyDown={this._handleKeyDown}
-                                   placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
-                        </div>
+                    <input type="text" className="form-control"
+                           name={fields.languageField.name}
+                           defaultValue={this.state.formData[fields.languageField]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
 
-                        <input type="text" className="form-control"
-                               name={fields.userField}
-                               defaultValue={this.state.formData[fields.userField]}
-                               onChange={this._updateField}
-                               onKeyDown={this._handleKeyDown}
-                               placeholder={this.state.translations.REPOSITORIES_HEAD_FORM_USER_FIELD}/>
-                    </div>
+                    <input type="text" className="form-control"
+                           name={fields.userField.name}
+                           defaultValue={this.state.formData[fields.userField.name]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_USER_FIELD}/>
+
+                    <input type="text" className="form-control"
+                           name={fields.starField.name}
+                           defaultValue={this.state.formData[fields.starField.name]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_STAR_FIELD}/>
+
+                    <input type="text" className="form-control"
+                           name={fields.forkField.name}
+                           defaultValue={this.state.formData[fields.forkField.name]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_FORK_FIELD}/>
+
+                    <input type="text" className="form-control"
+                           name={fields.sizeField.name}
+                           defaultValue={this.state.formData[fields.sizeField.name]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SIZE_FIELD}/>
                 </div>
 
-                <button className="btn btn-warning">{this.state.translations.VALIDATE}</button>
+                <button className="btn btn-warning">{this.props.translations.VALIDATE}</button>
 
-                <span id="error-msg" className="error-msg">{this.state.translations.REPOSITORIES_HEAD_FORM_ERROR}</span>
+                <span id="error-msg" className="error-msg">{this.props.translations.REPOSITORIES_HEAD_FORM_ERROR}</span>
             </form>
         );
     },
@@ -112,7 +146,8 @@ var Form = React.createClass({
         "use strict";
         event.preventDefault();
         var form = RepositoriesStore.getForm();
-        if(this._checkValidParam(form)) {
+
+        if (this._checkValidForm(form)) {
             var filter = RepositoriesStore.getFilter();
             RepositoriesAction.submitSearch(form, filter);
             this._resetFormValidationError();
@@ -120,31 +155,34 @@ var Form = React.createClass({
         else this._showFormValidationError();
     },
 
-    _checkValidParam: function(form) {
+    _checkValidForm: function (form) {
         "use strict";
-        for(var field in fields) {
-            if(form[fields[field]] && form[fields[field]].trim().length > 0) return true;
+        var filledField = 0;
+        var inError = false;
+
+        for (var field in fields) {
+            var regex = new RegExp(fields[field].validation);
+            if (form[fields[field].name] !== undefined && form[fields[field].name].trim() !== '') {
+                filledField += 1;
+                if (!regex.test(form[fields[field].name].trim())) {
+                    //showFieldInError
+                    inError = true;
+                }
+            }
         }
-        return false;
+        return !(filledField === 0 || inError);
+
     },
 
-    _showFormValidationError: function() {
+    _showFormValidationError: function () {
         "use strict";
-        var descriptionNode = jQuery('#'+fields.descriptionField);
-        var languageNode = jQuery('#'+fields.languageField);
         var errorMsg = jQuery('#error-msg');
-        descriptionNode.addClass('has-error has-feedback');
-        languageNode.addClass('has-error has-feedback');
         errorMsg.className = errorMsg.addClass('active');
     },
 
-    _resetFormValidationError: function() {
+    _resetFormValidationError: function () {
         "use strict";
-        var descriptionNode = jQuery('#'+fields.descriptionField);
-        var languageNode = jQuery('#'+fields.languageField);
         var errorMsg = jQuery('#error-msg');
-        descriptionNode.removeClass('has-error has-feedback');
-        languageNode.removeClass('has-error has-feedback');
         errorMsg.className = errorMsg.removeClass('active');
     }
 

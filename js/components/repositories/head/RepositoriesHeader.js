@@ -16,7 +16,7 @@ var RepositoriesHeader = React.createClass({
                 <div className="title">
                     <Link to="home">{this.props.translations.REPOSITORIES_HEADER_TITLE}</Link>
                 </div>
-                <Form />
+                <Form translations={this.props.translations}/>
             </div>
         )
     }

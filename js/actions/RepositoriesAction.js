@@ -4,6 +4,7 @@ var ErrorAction = require('./ErrorAction');
 var ApiConstants = require('../constants/GithubApiConstants');
 var BrowseConst = ApiConstants.BROWSE_CONSTANTS;
 var ErrorCode = ApiConstants.ERROR_CODE;
+var QueryConst = ApiConstants.QUERY_SEARCH_CONSTANTS;
 
 function insertSeparator(separator, query) {
     "use strict";
@@ -26,9 +27,11 @@ function buildDataForm(form) {
     var dataQueryString = '';
 
     dataQueryString = insertDataParam(dataQueryString, form.description);
-    dataQueryString = insertDataParam(dataQueryString, form.language, 'language');
-    dataQueryString = insertDataParam(dataQueryString, form.user, 'user');
-
+    dataQueryString = insertDataParam(dataQueryString, form.language, QueryConst.language);
+    dataQueryString = insertDataParam(dataQueryString, form.user, QueryConst.user);
+    dataQueryString = insertDataParam(dataQueryString, form.stars, QueryConst.stars);
+    dataQueryString = insertDataParam(dataQueryString, form.forks, QueryConst.forks);
+    dataQueryString = insertDataParam(dataQueryString, form.size, QueryConst.size);
     return dataQueryString;
 }
 function buildQueryParams(form, filter, page) {
