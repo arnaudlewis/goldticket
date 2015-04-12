@@ -19,11 +19,11 @@ gulp.task('browserify', function () {
         .on('update', function () {
             watcher.bundle()
                 .pipe(source('App.js'))
-                .pipe(gulp.dest('./dist/'));
+                .pipe(gulp.dest('./build/'));
         })
         .bundle() // Create the initial bundle when starting the task
         .pipe(source('App.js'))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('sass', function () {

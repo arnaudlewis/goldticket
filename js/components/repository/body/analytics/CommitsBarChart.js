@@ -8,6 +8,7 @@ var CommitsBarChart = React.createClass({
         committers: React.PropTypes.array.isRequired,
         commits: React.PropTypes.array.isRequired
     },
+
     render: function () {
         "use strict";
         return (
@@ -21,30 +22,43 @@ var CommitsBarChart = React.createClass({
         );
     },
 
-    _getLabels: function () {
+    _getActiveCommitters: function () {
+        "use strict";
+        var committerList = {};
+        this.props.commits.forEach(function (commit) {
+            if (commit.committer && !committerList[commit.committer.id]) {
+                committerList[commit.committer.id] = commit.committer;
+            }
+        });
+        return $.map(committerList, function (committer) {
+            return committer;
+        });
+    },
+
+    _getLabels: function (activeCommitters) {
         "use strict";
         var labels = [];
-        this.props.committers.map(function (committer) {
+        activeCommitters.map(function (committer) {
             labels.push(committer.login);
         });
         return labels;
     },
 
-    _generateCounters: function () {
+    _generateCounters: function (activeCommitters) {
         "use strict";
         var counters = {};
-        this.props.committers.map(function (committer) {
+        activeCommitters.map(function (committer) {
             counters[committer.login] = 0;
         });
         this.props.commits.map(function (commit) {
             if (commit.committer) counters[commit.committer.login] = counters[commit.committer.login] + 1;
         });
         return $.map(counters, function (counter) {
-            return counter;
+            return counter > 0 ? counter : undefined;
         });
     },
 
-    _getDataset: function () {
+    _getDataset: function (activeCommitters) {
         "use strict";
         return [
             {
@@ -53,7 +67,7 @@ var CommitsBarChart = React.createClass({
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data: this._generateCounters()
+                data: this._generateCounters(activeCommitters)
             }
         ];
     },
@@ -65,8 +79,9 @@ var CommitsBarChart = React.createClass({
             datasets: [{}]
         };
         if (!this.props.commits.length > 0) return data;
-        data.labels = this._getLabels();
-        data.datasets = this._getDataset();
+        var activeCommitters = this._getActiveCommitters();
+        data.labels = this._getLabels(activeCommitters);
+        data.datasets = this._getDataset(activeCommitters);
         return data;
     }
 });
