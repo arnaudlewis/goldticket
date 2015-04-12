@@ -155,16 +155,23 @@ var Form = React.createClass({
         else this._showFormValidationError();
     },
 
+    _isEmptyfield(form, field) {
+        return form[fields[field].name] === undefined || form[fields[field].name].trim() === '';
+    },
+
+    _isValidField(regex, form, field) {
+        return regex.test(form[fields[field].name].trim());
+    },
+
     _checkValidForm: function (form) {
         "use strict";
         var filledField = 0;
         var inError = false;
-
         for (var field in fields) {
-            var regex = new RegExp(fields[field].validation);
-            if (form[fields[field].name] !== undefined && form[fields[field].name].trim() !== '') {
+            if (!this._isEmptyfield(form, field)) {
                 filledField += 1;
-                if (!regex.test(form[fields[field].name].trim())) {
+                var regex = new RegExp(fields[field].validation);
+                if (!_isValidField(regex, form, field)) {
                     //showFieldInError
                     inError = true;
                 }
