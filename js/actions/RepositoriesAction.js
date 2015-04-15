@@ -32,6 +32,8 @@ function buildDataForm(form) {
     dataQueryString = insertDataParam(dataQueryString, form.stars, QueryConst.stars);
     dataQueryString = insertDataParam(dataQueryString, form.forks, QueryConst.forks);
     dataQueryString = insertDataParam(dataQueryString, form.size, QueryConst.size);
+    dataQueryString = insertDataParam(dataQueryString, form.created, QueryConst.created);
+    dataQueryString = insertDataParam(dataQueryString, form.pushed, QueryConst.pushed);
     return dataQueryString;
 }
 function buildQueryParams(form, filter, page) {

@@ -11,7 +11,9 @@ module.exports = {
         user: 'user',
         forks: 'forks',
         stars: 'stars',
-        size: 'size'
+        size: 'size',
+        created: 'created',
+        pushed: 'pushed'
     },
     ERROR_CODE: {
         WRONG_REPOSITORY_SEARCH_STATUS: 422,

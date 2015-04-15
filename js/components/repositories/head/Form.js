@@ -14,7 +14,9 @@ function getFormState() {
 }
 
 var regexString = '^[\\w.\\-_]+$';
-var regexNumberWithInterval = '^(((>|<)?([0-9]+))|(([0-9]+)..([0-9]+)))$';
+var regexNumberWithInterval = '^((((>=?)|(<=?))?([0-9]+))|(([0-9]+)..([0-9]+)))$';
+var datePattern = '(([1-9][0-9]{3})-([0-1][0-9])-([0-3][0-9]))';
+var regexDate = '((((>=?)|(<=?))?(' + datePattern + '))|((' + datePattern + ')..(' + datePattern + ')))$';
 
 var fields = {
     descriptionField: {
@@ -40,6 +42,16 @@ var fields = {
     sizeField: {
         name: 'size',
         validation: regexNumberWithInterval
+    },
+
+    createdField: {
+        name: 'created',
+        validation: regexDate
+    },
+
+    pushedField: {
+        name: 'pushed',
+        validation: regexDate
     }
 };
 
@@ -129,6 +141,24 @@ var Form = React.createClass({
                                onChange={this._updateField}
                                onKeyDown={this._handleKeyDown}
                                placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SIZE_FIELD}/>
+                    </div>
+
+                    <div id={fields.createdField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.createdField.name}
+                               defaultValue={this.state.formData[fields.createdField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_CREATED_FIELD}/>
+                    </div>
+
+                    <div id={fields.pushedField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.pushedField.name}
+                               defaultValue={this.state.formData[fields.pushedField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_PUSHED_FIELD}/>
                     </div>
                 </div>
 
