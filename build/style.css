@@ -217,7 +217,8 @@ body {
       margin-top: 2em; }
       .repositories-component .repositories-header .form .error-msg.active {
         display: block; }
-    .repositories-component .repositories-header .form input {
+    .repositories-component .repositories-header .form .form-group.in-error {
+      box-shadow: 1px 1px 15px 1px #f94d4d;
       width: 100%;
       margin: 0 0 1em 0; }
     .repositories-component .repositories-header .form .advance {

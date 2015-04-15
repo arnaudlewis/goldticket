@@ -80,6 +80,7 @@ var RepositoriesAction = {
             url: baseSearchPath,
             type: 'GET',
             page: data.page,
+            validForm: form,
             contentType: 'application/json; charset=utf-8',
             data: data
         })
@@ -88,7 +89,7 @@ var RepositoriesAction = {
                 if (data.incomplete_results === true) ErrorAction.showErrorTranslation("ERROR_INCOMPLETE_RESULTS_TITLE", "ERROR_INCOMPLETE_RESULTS_TEXT");
                 AppDispatcher.dispatch({
                     actionType: Constants.SUBMIT_SEARCH,
-                    data: {searchData: data, page: this.page, perPage: BrowseConst.PER_PAGE, maxResults: BrowseConst.MAX_RESULTS}
+                    data: {validForm: this.validForm, searchData: data, page: this.page, perPage: BrowseConst.PER_PAGE, maxResults: BrowseConst.MAX_RESULTS}
                 })
             })
             .error(function (xhr, textStatus, error) {
@@ -103,7 +104,7 @@ var RepositoriesAction = {
         if (repo.searchData[page]) {
             AppDispatcher.dispatch({
                 actionType: Constants.LOAD_CACHE_REPOSITORIES,
-                data: {page: page}
+                data: {page: page, validform: form}
             });
         } else {
             this.loadNewPageFromApi(form, filter, page);

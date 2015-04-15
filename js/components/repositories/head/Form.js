@@ -1,15 +1,15 @@
 var React = require('react');
-var jQuery = require('jquery');
 
 var RepositoriesStore = require('../../../stores/RepositoriesStore');
 var RepositoriesAction = require('../../../actions/RepositoriesAction');
+var ErrorAction = require('../../../actions/ErrorAction');
 
-var ENTER_CODE = 13;
+const ENTER_CODE = 13;
 
 function getFormState() {
     "use strict";
     return {
-        formData: RepositoriesStore.getForm()
+        formData: RepositoriesStore.getEditableForm()
     }
 }
 
@@ -69,12 +69,14 @@ var Form = React.createClass({
     render: function () {
         return (
             <form onSubmit={this._handleSubmit} className="form">
-                <input type="text" className="form-control"
-                       name={fields.descriptionField.name}
-                       defaultValue={this.state.formData[fields.descriptionField]}
-                       onChange={this._updateField}
-                       onKeyDown={this._handleKeyDown}
-                       placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
+                <div id={fields.descriptionField.name} className="form-group">
+                    <input type="text" className="form-control"
+                           name={fields.descriptionField.name}
+                           defaultValue={this.state.formData[fields.descriptionField.name]}
+                           onChange={this._updateField}
+                           onKeyDown={this._handleKeyDown}
+                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SEARCH_FIELD}/>
+                </div>
 
                 <span className="advance">
                     <i className="glyphicon glyphicon-cog"/>
@@ -84,45 +86,53 @@ var Form = React.createClass({
                     </span>
 
                 <div id="advanceSettings" className="panel-collapse collapse">
-                    <input type="text" className="form-control"
-                           name={fields.languageField.name}
-                           defaultValue={this.state.formData[fields.languageField]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
+                    <div id={fields.languageField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.languageField.name}
+                               defaultValue={this.state.formData[fields.languageField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_LANGUAGE_FIELD}/>
+                    </div>
 
-                    <input type="text" className="form-control"
-                           name={fields.userField.name}
-                           defaultValue={this.state.formData[fields.userField.name]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_USER_FIELD}/>
+                    <div id={fields.userField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.userField.name}
+                               defaultValue={this.state.formData[fields.userField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_USER_FIELD}/>
+                    </div>
 
-                    <input type="text" className="form-control"
-                           name={fields.starField.name}
-                           defaultValue={this.state.formData[fields.starField.name]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_STAR_FIELD}/>
+                    <div id={fields.starField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.starField.name}
+                               defaultValue={this.state.formData[fields.starField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_STAR_FIELD}/>
+                    </div>
 
-                    <input type="text" className="form-control"
-                           name={fields.forkField.name}
-                           defaultValue={this.state.formData[fields.forkField.name]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_FORK_FIELD}/>
+                    <div id={fields.forkField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.forkField.name}
+                               defaultValue={this.state.formData[fields.forkField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_FORK_FIELD}/>
+                    </div>
 
-                    <input type="text" className="form-control"
-                           name={fields.sizeField.name}
-                           defaultValue={this.state.formData[fields.sizeField.name]}
-                           onChange={this._updateField}
-                           onKeyDown={this._handleKeyDown}
-                           placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SIZE_FIELD}/>
+                    <div id={fields.sizeField.name} className="form-group">
+                        <input type="text" className="form-control"
+                               name={fields.sizeField.name}
+                               defaultValue={this.state.formData[fields.sizeField.name]}
+                               onChange={this._updateField}
+                               onKeyDown={this._handleKeyDown}
+                               placeholder={this.props.translations.REPOSITORIES_HEAD_FORM_SIZE_FIELD}/>
+                    </div>
                 </div>
 
                 <button className="btn btn-warning">{this.props.translations.VALIDATE}</button>
-
-                <span id="error-msg" className="error-msg">{this.props.translations.REPOSITORIES_HEAD_FORM_ERROR}</span>
             </form>
         );
     },
@@ -148,51 +158,61 @@ var Form = React.createClass({
     _handleSubmit: function (event) {
         "use strict";
         event.preventDefault();
-        var form = RepositoriesStore.getForm();
+        var form = RepositoriesStore.getEditableForm();
 
-        if (this._checkValidForm(form)) {
+        if (this.checkValidForm(form)) {
             var filter = RepositoriesStore.getFilter();
             RepositoriesAction.submitSearch(form, filter);
             this._resetFormValidationError();
         }
-        else this._showFormValidationError();
     },
 
-    _isEmptyfield(form, field) {
+    _isEmptyfield: function (form, field) {
         return form[fields[field].name] === undefined || form[fields[field].name].trim() === '';
     },
 
-    _isValidField(regex, form, field) {
+    _isValidField: function (regex, form, field) {
         return regex.test(form[fields[field].name].trim());
     },
 
-    _checkValidForm: function (form) {
+    _setFieldInError: function (field) {
+        $('#' + fields[field].name).addClass('in-error');
+    },
+
+    _displayInvalidFormError: function (filled, inError) {
         "use strict";
-        var filledField = 0;
-        var inError = false;
+        if (!filled) {
+            ErrorAction.showError(
+                this.props.translations.REPOSITORIES_HEAD_FORM_ERROR_EMPTY_FORM_TITLE,
+                this.props.translations.REPOSITORIES_HEAD_FORM_ERROR_EMPTY_FORM_TEXT);
+        } else if (inError) {
+            ErrorAction.showError(
+            this.props.translations.REPOSITORIES_HEAD_FORM_ERROR_INVALID_FORM_TITLE,
+                this.props.translations.REPOSITORIES_HEAD_FORM_ERROR_INVALID_FORM_TEXT);
+        }
+    },
+
+    checkValidForm: function (form) {
+        "use strict";
+        this._resetFormValidationError();
+        var filled, inError = false;
         for (var field in fields) {
             if (!this._isEmptyfield(form, field)) {
-                filledField += 1;
+                filled = true;
                 var regex = new RegExp(fields[field].validation);
-                if (!_isValidField(regex, form, field)) {
-                    //showFieldInError
+                if (!this._isValidField(regex, form, field)) {
+                    this._setFieldInError(field);
                     inError = true;
                 }
             }
         }
-        return !(filledField === 0 || inError);
-    },
-
-    _showFormValidationError: function () {
-        "use strict";
-        var errorMsg = jQuery('#error-msg');
-        errorMsg.className = errorMsg.addClass('active');
+        this._displayInvalidFormError(filled, inError);
+        return (filled && !inError);
     },
 
     _resetFormValidationError: function () {
         "use strict";
-        var errorMsg = jQuery('#error-msg');
-        errorMsg.className = errorMsg.removeClass('active');
+        $('.form-group').removeClass('in-error');
     }
 
 });

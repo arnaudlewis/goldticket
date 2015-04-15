@@ -47,9 +47,12 @@
         }
       }
 
-      input {
-        width: 100%;
-        margin: 0 0 1em 0;
+      .form-group {
+        &.in-error {
+          box-shadow : 1px 1px 15px 1px $repositories_head_form_error_msg;
+          width: 100%;
+          margin: 0 0 1em 0;
+        }
       }
 
       .advance {

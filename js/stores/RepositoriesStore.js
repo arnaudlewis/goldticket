@@ -10,9 +10,11 @@ var _searchData = {};
 var _filter = {};
 var _form = {};
 var _page = 0;
+var _validForm = {};
 
 if (sessionStorage.RepositoriesStore) {
     repo = JSON.parse(sessionStorage.RepositoriesStore);
+    _validform = repo.validForm;
     _searchData = repo.searchData;
     _filter = repo.filter;
     _form = repo.form;
@@ -21,6 +23,7 @@ if (sessionStorage.RepositoriesStore) {
     _MAX_RESULTS = repo.maxResults;
 } else {
     sessionStorage.RepositoriesStore = JSON.stringify({
+        validForm: _validForm,
         searchData: _searchData,
         filter: _filter,
         form: _form,
@@ -49,11 +52,6 @@ var RepositoriesStore = assign({}, EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, callback);
     },
 
-    getSearchData: function () {
-        "use strict";
-        return _searchData;
-    },
-
     resetSearchData: function () {
         "use strict";
         _searchData = {};
@@ -80,6 +78,11 @@ var RepositoriesStore = assign({}, EventEmitter.prototype, {
     },
 
     getForm: function () {
+        "use strict";
+        return _validForm;
+    },
+
+    getEditableForm: function () {
         "use strict";
         return _form;
     },
@@ -112,6 +115,7 @@ AppDispatcher.register(function (payload) {
     switch (action.actionType) {
         case Constants.SUBMIT_SEARCH :
             _page = action.data.page;
+            _validForm = action.data.validForm;
             _searchData[_page] = action.data.searchData.items;
             _searchData.total_count = action.data.searchData.total_count;
             _PER_PAGE = action.data.perPage;
@@ -134,7 +138,8 @@ AppDispatcher.register(function (payload) {
         form: _form,
         page: _page,
         perPage: _PER_PAGE,
-        maxResults: _MAX_RESULTS
+        maxResults: _MAX_RESULTS,
+        validform: _validForm
     });
     RepositoriesStore.emitChange();
 
