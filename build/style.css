@@ -232,7 +232,8 @@ body {
         margin-right: 0.5em;
         line-height: 1em; }
     .repositories-component .repositories-header .form > div {
-      width: 100%; }
+      width: 100%;
+      max-width: 40em; }
     .repositories-component .repositories-header .form button {
       max-width: 10em;
       width: 100%; }
@@ -526,7 +527,8 @@ body {
         text-align: center;
         float: left; }
 .repository-component .repository-container {
-  text-align: center; }
+  text-align: center;
+  padding: 2em; }
   .repository-component .repository-container .graph-container {
     margin: 3em 0 3em 0; }
     .repository-component .repository-container .graph-container .title {
